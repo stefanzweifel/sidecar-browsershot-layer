@@ -4,7 +4,7 @@ An AWS Lambda Layer containing `puppeteer-core`; mainly used by [sidecar-browser
 
 The latest version of `sidecar-browsershot-layer` contains the following dependencies and their versions:
 
-- `puppeteer-core`: v21.1.0
+- `puppeteer-core`: v22.0.0
 
 This layer works great in combination with [shelfio/chrome-aws-lambda-layer](https://github.com/shelfio/chrome-aws-lambda-layer) to run Chromium on AWS Lambda.
 
