@@ -38,7 +38,7 @@ An AWS Layer is simply a ZIP file containing code. In this project the layer con
 Run the following commands in your terminal to install the dependencies and create the layer ZIP file.
 
 ```shell
-yarn;
+npm install;
 sh bin/create-layer-zip.sh;
 ```
 
