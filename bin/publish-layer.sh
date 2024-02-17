@@ -27,6 +27,8 @@ LOCAL_FILE_PATH="dist/${LOCAL_FILENAME}";
 for REGION in $AWS_REGIONS; do
     BUCKET_NAME="$S3_BUCKET_NAME-$REGION";
 
+    echo "Publish Layer in $REGION";
+
     # Uplaod ZIP to S3 Bucket
     aws configure set region $REGION;
     aws s3 cp $LOCAL_FILE_PATH s3://$BUCKET_NAME/$REMOTE_FILE_PATH --profile=$PROFILE;
