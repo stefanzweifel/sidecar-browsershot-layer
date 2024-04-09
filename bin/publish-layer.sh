@@ -43,7 +43,8 @@ for REGION in $AWS_REGIONS; do
         --compatible-architectures x86_64 \
         --output text \
         --query Version \
-        --profile $PROFILE)
+        --profile $PROFILE \
+        > /dev/null)
 
     # Update Layer Permission
     aws lambda add-layer-version-permission \
@@ -53,5 +54,6 @@ for REGION in $AWS_REGIONS; do
         --action lambda:GetLayerVersion \
         --principal '*' \
         --version-number $NEW_VERSION_NUMBER \
-        --profile=$PROFILE
+        --profile=$PROFILE \
+        > /dev/null
 done
