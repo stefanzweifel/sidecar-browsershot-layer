@@ -12,22 +12,22 @@ This layer works great in combination with [shelfio/chrome-aws-lambda-layer](htt
 
 We've deployed this layer to a number of AWS regions. Use the ARN that matches your region from the list below.
 
-- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:us-east-2:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:us-west-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:us-west-2:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ca-central-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:eu-central-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:eu-west-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:eu-west-2:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:eu-west-3:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:eu-north-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ap-northeast-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ap-northeast-2:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ap-southeast-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ap-southeast-2:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:ap-south-1:821527532446:layer:sidecar-browsershot-layer:2`
-- `arn:aws:lambda:sa-east-1:821527532446:layer:sidecar-browsershot-layer:2`
+- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:us-east-2:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:us-west-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:us-west-2:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ca-central-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:eu-central-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:eu-west-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:eu-west-2:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:eu-west-3:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:eu-north-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ap-northeast-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ap-northeast-2:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ap-southeast-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ap-southeast-2:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:ap-south-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:sa-east-1:821527532446:layer:sidecar-browsershot-layer:3`
 
 ## Development
 This repository holds some simple bash scripts to help with the development of this layer. Most script require the [aws CLI](https://aws.amazon.com/cli/) to be installed and configured.
