@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build": "bin/create-layer-zip.sh",
+    "smoke:test": "bin/smoke-test-zip.sh"
+  },
   "dependencies": {
     "puppeteer-core": "^22.0.0"
   }

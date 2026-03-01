@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - name: Build Layer
+        run: npm run build
+      - name: Smoke Test
+        run: npm run smoke:test
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sidecar-browsershot-layer-zip
+          path: dist/sidecar-browsershot-layer.zip
+          retention-days: 1
+
+  deploy-test-canary:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: testing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sidecar-browsershot-layer-zip
+          path: dist
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1 # Default canary region
+      - name: Deploy Canary
+        run: bin/canary-deploy.sh --stage test
+      - name: Invoke Canary
+        run: bin/canary-invoke.sh --stage test
+
+  deploy-prod:
+    needs: deploy-test-canary
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sidecar-browsershot-layer-zip
+          path: dist
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Publish to All Regions
+        run: bin/publish-layer.sh --stage prod
