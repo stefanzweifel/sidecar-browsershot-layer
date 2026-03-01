@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 source "$(dirname "$0")/config.sh"
 
