@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source "$(dirname "$0")/config.sh"
+ . "$(dirname "$0")/config.sh"
 
 parse_args "$@"
 
@@ -10,7 +10,7 @@ if [ -n "$PROFILE" ] && [ -z "$AWS_PROFILE_ARG" ]; then
 fi
 
 # Extract exact dependency versions
-PUPPETEER_CORE_VERSION=$(npm list --json | jq -r '.dependencies."puppeteer-core".version');
+PUPPETEER_CORE_VERSION=$(npm list --json | jq -r '.dependencies . "puppeteer-core".version');
 
 # Generate Layer description
 LAYER_DESCRIPTION="puppeteer-core v$PUPPETEER_CORE_VERSION";
@@ -23,7 +23,7 @@ REMOTE_FILE_PATH="${STAGE}/${REMOTE_FILE_NAME}";
 LOCAL_FILE_PATH="dist/${LOCAL_FILENAME}";
 
 if [ ! -f "$LOCAL_FILE_PATH" ]; then
-    echo "Error: $LOCAL_FILE_PATH not found. Run bin/create-layer-zip.sh first."
+    echo "Error: $LOCAL_FILE_PATH not found. Run bin/create-layer-zip.sh first . "
     exit 1
 fi
 

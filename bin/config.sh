@@ -50,7 +50,7 @@ parse_args() {
 
     # Validate stage
     if [ "$STAGE" != "prod" ] && [ "$STAGE" != "test" ]; then
-        echo "Error: --stage must be either 'prod' or 'test'."
+        echo "Error: --stage must be either 'prod' or 'test' . "
         exit 1
     fi
 
