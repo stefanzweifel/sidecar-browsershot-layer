@@ -65,10 +65,17 @@ if aws lambda get-function --function-name "$CANARY_LAMBDA_NAME" --region "$REGI
         --zip-file "fileb://$TMP_ZIP" \
         $AWS_PROFILE_ARG > /dev/null
 
+    echo "Waiting for Lambda function update to complete.. . "
+    aws lambda wait function-updated \
+        --region "$REGION" \
+        --function-name "$CANARY_LAMBDA_NAME" \
+        $AWS_PROFILE_ARG
+
     aws lambda update-function-configuration \
         --region "$REGION" \
         --function-name "$CANARY_LAMBDA_NAME" \
         --layers "$LAYER_ARN" \
+        --runtime "$LAMBDA_RUNTIME" \
         $AWS_PROFILE_ARG > /dev/null
 else
     echo "Creating new canary Lambda.. . "
@@ -80,7 +87,7 @@ else
     aws lambda create-function \
         --region "$REGION" \
         --function-name "$CANARY_LAMBDA_NAME" \
-        --runtime nodejs18.x \
+        --runtime "$LAMBDA_RUNTIME" \
         --handler handler.handler \
         --role "$ROLE_ARN" \
         --zip-file "fileb://$TMP_ZIP" \

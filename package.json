@@ -3,6 +3,10 @@
     "build": "bin/create-layer-zip.sh",
     "smoke:test": "bin/smoke-test-zip.sh"
   },
+  "engines": {
+    "npm": ">=10.0.0 <11.0.0",
+    "node": ">=22.0.0 <23.0.0"
+  },
   "dependencies": {
     "puppeteer-core": "^22.0.0"
   }
