@@ -30,35 +30,77 @@ We've deployed this layer to a number of AWS regions. Use the ARN that matches y
 - `arn:aws:lambda:sa-east-1:821527532446:layer:sidecar-browsershot-layer:3`
 
 ## Development
-This repository holds some simple bash scripts to help with the development of this layer. Most script require the [aws CLI](https://aws.amazon.com/cli/) to be installed and configured.
+This repository holds bash scripts to help with the development and deployment of this layer. Most scripts require the [aws CLI](https://aws.amazon.com/cli/) to be installed and [jq](https://stedolan.github.io/jq/) for JSON parsing.
+
+### Common Script Arguments
+Most scripts in `bin/` accept the following arguments:
+- `--stage <test|prod>`: Target namespace (default: `prod`). Affects layer and bucket names.
+- `--profile <name>`: AWS CLI profile to use.
+- `--regions "<list>"`: Space-separated list of regions.
+- `--canary-region <region>`: Region used for canary testing (default: `us-east-1`).
 
 ### Creating new layer zip file
-An AWS Layer is simply a ZIP file containing code. In this project the layer contains a `node_modules`-folder containing the required dependencies to run `puppeteer-core`.
-
-Run the following commands in your terminal to install the dependencies and create the layer ZIP file.
+An AWS Layer is a ZIP file containing code. This layer contains a `node_modules` folder with `puppeteer-core`.
 
 ```shell
-npm install;
-sh bin/create-layer-zip.sh;
+npm install
+npm run build
 ```
 
-A `dist/sidecar-browsershot-layer.zip` file should have been created.
-
-### Publish new layer version
-Run the following command to publish a new layer version to all supported regions using the provided AWS CLI profile.
-The `dist/sidecar-browsershot-layer.zip`-file will be uploaded to S3 and used as a layer.
+### Local Smoke Test
+Verify the generated ZIP structure and that `puppeteer-core` can be required.
 
 ```shell
-sh bin/publish-layer.sh <aws-cli-profile>
+npm run smoke:test
+```
+
+### AWS Canary Test
+Deploy the layer to the `test` namespace in the canary region, then create and invoke a small Lambda function to verify it works in a real AWS environment.
+
+```shell
+# Deploy canary (publishes test layer and updates canary Lambda)
+bin/canary-deploy.sh --stage test --profile your-profile
+
+# Invoke canary and check results
+bin/canary-invoke.sh --stage test --profile your-profile
+```
+
+### Publish new layer version
+Publish the layer to all supported regions.
+
+```shell
+# Deploy to test namespace (private by default)
+bin/publish-layer.sh --stage test --profile your-profile
+
+# Deploy to prod namespace (public by default)
+bin/publish-layer.sh --stage prod --profile your-profile
 ```
 
 ### Create Buckets for supported regions
-Run the following command to create AWS S3 buckets in the supported regions.
-(You probably only ever have to run this command if new regions should be added)
+Create AWS S3 buckets in the supported regions if they don't exist.
 
 ```shell
-sh bin/create-buckets.sh <aws-cli-profile>
+bin/create-buckets.sh --stage prod --profile your-profile
 ```
+
+## CI/CD Workflow
+This project uses GitHub Actions for automation.
+
+### CI (Pull Requests / Push to main)
+- Builds the layer ZIP.
+- Runs the local smoke test.
+
+### Release (Tags `v*`)
+1. **Build**: Creates the production artifact.
+2. **Test Canary**: Deploys the artifact to the `test` namespace in `us-east-1` and runs the canary invoke test.
+3. **Production Deployment**: After manual approval in GitHub Environments (`production`), publishes the layer to all supported regions under the `prod` namespace.
+
+#### Setup Requirements
+- **AWS OIDC**: GitHub Actions should be configured to authenticate via OIDC.
+- **Secrets**:
+  - `AWS_ROLE_ARN`: The ARN of the IAM role for GitHub Actions to assume.
+- **IAM Permissions**: The role needs permissions for S3 (PutObject), Lambda (PublishLayerVersion, AddLayerVersionPermission, Create/Update/Invoke Function), and IAM (GetRole).
+- **Canary Role**: A role named `sidecar-browsershot-layer-canary-role` must exist for the canary Lambda function to use.
 
 ## Changelog
 

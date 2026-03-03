@@ -1,6 +1,6 @@
-#!/usr/bin/sh
+#!/bin/sh
 
-source "$(dirname "$0")/config.sh"
+ . "$(dirname "$0")/config.sh"
 
 rm -rf "./dist/$LOCAL_FILENAME";
 
