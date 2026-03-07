@@ -4,7 +4,7 @@ An AWS Lambda Layer containing `puppeteer-core`; mainly used by [sidecar-browser
 
 The latest version of `sidecar-browsershot-layer` contains the following dependencies and their versions:
 
-- `puppeteer-core`: v22.0.0
+- `puppeteer-core`: v22.6.3
 
 This layer works great in combination with [shelfio/chrome-aws-lambda-layer](https://github.com/shelfio/chrome-aws-lambda-layer) to run Chromium on AWS Lambda.
 
@@ -12,7 +12,7 @@ This layer works great in combination with [shelfio/chrome-aws-lambda-layer](htt
 
 We've deployed this layer to a number of AWS regions. Use the ARN that matches your region from the list below.
 
-- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:4`
 - `arn:aws:lambda:us-east-2:821527532446:layer:sidecar-browsershot-layer:3`
 - `arn:aws:lambda:us-west-1:821527532446:layer:sidecar-browsershot-layer:3`
 - `arn:aws:lambda:us-west-2:821527532446:layer:sidecar-browsershot-layer:3`
@@ -97,6 +97,14 @@ Fetch the latest layer ARNs for all supported regions. Useful for updating docum
 
 ```shell
 bin/get-layer-arns.sh --stage prod --profile your-profile
+```
+
+### Update README with Latest ARNs
+
+Automatically update the "Available Regions" section in the README with the latest layer ARNs. This is run automatically by CI after a production deployment.
+
+```shell
+bin/update-readme-arns.sh --stage prod --profile your-profile
 ```
 
 ## CI/CD Workflow
