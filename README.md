@@ -4,7 +4,7 @@ An AWS Lambda Layer containing `puppeteer-core`; mainly used by [sidecar-browser
 
 The latest version of `sidecar-browsershot-layer` contains the following dependencies and their versions:
 
-- `puppeteer-core`: v22.6.3
+- `puppeteer-core`: v24.37.5
 
 This layer works great in combination with [shelfio/chrome-aws-lambda-layer](https://github.com/shelfio/chrome-aws-lambda-layer) to run Chromium on AWS Lambda.
 
@@ -12,22 +12,22 @@ This layer works great in combination with [shelfio/chrome-aws-lambda-layer](htt
 
 We've deployed this layer to a number of AWS regions. Use the ARN that matches your region from the list below.
 
-- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:4`
-- `arn:aws:lambda:us-east-2:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:us-west-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:us-west-2:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ca-central-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:eu-central-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:eu-west-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:eu-west-2:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:eu-west-3:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:eu-north-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ap-northeast-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ap-northeast-2:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ap-southeast-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ap-southeast-2:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:ap-south-1:821527532446:layer:sidecar-browsershot-layer:3`
-- `arn:aws:lambda:sa-east-1:821527532446:layer:sidecar-browsershot-layer:3`
+- `arn:aws:lambda:us-east-1:821527532446:layer:sidecar-browsershot-layer:5`
+- `arn:aws:lambda:us-east-2:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:us-west-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:us-west-2:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ca-central-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:eu-central-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:eu-west-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:eu-west-2:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:eu-west-3:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:eu-north-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ap-northeast-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ap-northeast-2:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ap-southeast-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ap-southeast-2:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:ap-south-1:821527532446:layer:sidecar-browsershot-layer:4`
+- `arn:aws:lambda:sa-east-1:821527532446:layer:sidecar-browsershot-layer:4`
 
 ## Development
 
