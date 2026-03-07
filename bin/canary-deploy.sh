@@ -77,6 +77,12 @@ if aws lambda get-function --function-name "$CANARY_LAMBDA_NAME" --region "$REGI
         --layers "$LAYER_ARN" \
         --runtime "$LAMBDA_RUNTIME" \
         $AWS_PROFILE_ARG > /dev/null
+
+    echo "Waiting for Lambda function configuration update to complete.. . "
+    aws lambda wait function-updated \
+        --region "$REGION" \
+        --function-name "$CANARY_LAMBDA_NAME" \
+        $AWS_PROFILE_ARG
 else
     echo "Creating new canary Lambda.. . "
     if [ -z "$ROLE_ARN" ]; then
@@ -95,6 +101,12 @@ else
         --timeout 30 \
         --memory-size 512 \
         $AWS_PROFILE_ARG > /dev/null
+
+    echo "Waiting for Lambda function to be active.. . "
+    aws lambda wait function-active-v2 \
+        --region "$REGION" \
+        --function-name "$CANARY_LAMBDA_NAME" \
+        $AWS_PROFILE_ARG
 fi
 
 echo "Canary Lambda $CANARY_LAMBDA_NAME deployed and configured . "
