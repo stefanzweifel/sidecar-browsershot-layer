@@ -1,0 +1,63 @@
+name: Update puppeteer-core
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # Every Monday at 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Get current version
+        id: current
+        run: echo "version=$(npm list puppeteer-core --json | jq -r '.dependencies["puppeteer-core"].version')" >> "$GITHUB_OUTPUT"
+
+      - name: Update puppeteer-core
+        run: npm install puppeteer-core@latest
+
+      - name: Get updated version
+        id: updated
+        run: echo "version=$(npm list puppeteer-core --json | jq -r '.dependencies["puppeteer-core"].version')" >> "$GITHUB_OUTPUT"
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet package.json package-lock.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Layer ZIP
+        if: steps.diff.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Run Smoke Test
+        if: steps.diff.outputs.changed == 'true'
+        run: npm run smoke:test
+
+      - name: Create Pull Request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: update-puppeteer-core-${{ steps.updated.outputs.version }}
+          commit-message: "Update puppeteer-core to v${{ steps.updated.outputs.version }}"
+          title: "Update puppeteer-core to v${{ steps.updated.outputs.version }}"
+          body: |
+            Updates `puppeteer-core` from v${{ steps.current.outputs.version }} to v${{ steps.updated.outputs.version }}.
+
+            Build and smoke test passed.
+          assignees: stefanzweifel
