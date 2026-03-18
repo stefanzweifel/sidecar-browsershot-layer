@@ -49,6 +49,16 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: npm run smoke:test
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1 # Default canary region
+      - name: Deploy Canary
+        run: bin/canary-deploy.sh --stage test
+      - name: Invoke Canary
+        run: bin/canary-invoke.sh --stage test
+
       - name: Create Pull Request
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
