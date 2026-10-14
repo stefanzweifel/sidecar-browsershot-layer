@@ -8,7 +8,7 @@ export CANARY_REGION="${CANARY_REGION:-us-east-1}"
 export LAYER_NAME_BASE="sidecar-browsershot-layer"
 export S3_BUCKET_BASE="wnx-sidecar-layers"
 export LOCAL_FILENAME="sidecar-browsershot-layer.zip"
-export LAMBDA_RUNTIME="${LAMBDA_RUNTIME:-nodejs22.x}"
+export LAMBDA_RUNTIME="${LAMBDA_RUNTIME:-nodejs24.x}"
 
 # Function to parse arguments
 parse_args() {

@@ -20,14 +20,17 @@ echo "Checking if puppeteer-core can be required.. . "
 # In the layer, node_modules is under nodejs/
 NODE_PATH="$TMP_DIR/nodejs/node_modules"
 
-DETECTED_VERSION=$(NODE_PATH="$NODE_PATH" node -e '
-try {
-    const pkg = require("puppeteer-core/package.json");
-    console.log(pkg.version);
-} catch (e) {
-    console.error("Failed to require puppeteer-core:", e.message);
-    process.exit(1);
-}
+DETECTED_VERSION=$(NODE_PATH="$NODE_PATH" ENTRY="$NODE_PATH/puppeteer-core/lib/puppeteer/puppeteer-core.js" node -e '
+(async () => {
+    try {
+        await import(process.env.ENTRY);
+        const pkg = require("puppeteer-core/package.json");
+        console.log(pkg.version);
+    } catch (e) {
+        console.error("Failed to load puppeteer-core:", e.message);
+        process.exit(1);
+    }
+})();
 ')
 
 echo "Successfully required puppeteer-core version: $DETECTED_VERSION"

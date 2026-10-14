@@ -49,8 +49,8 @@ Version format for tags: `v<puppeteer-version>-<date>` (e.g., `v24.37.5-2026-03-
 
 ## Key Constraints
 
-- Node.js 22 / npm 10 (see `.nvmrc` and `package.json` engines)
-- Lambda runtime: `nodejs22.x`, architecture: `x86_64`
+- Node.js 24 / npm 11+ (see `.nvmrc` and `package.json` engines)
+- Lambda runtime: `nodejs24.x`, architecture: `x86_64`
 - The sole production dependency is `puppeteer-core` — the entire purpose of this repo is to package it as a Lambda layer
 - Layer naming: `sidecar-browsershot-layer` (prod) / `sidecar-browsershot-layer-test` (test)
 - S3 buckets: `wnx-sidecar-layers-<region>` (prod) / `wnx-sidecar-layers-test-<region>` (test)
