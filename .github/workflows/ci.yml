@@ -26,3 +26,6 @@ jobs:
 
       - name: Run Smoke Test
         run: npm run smoke:test
+
+      - name: Run Canary in Lambda container
+        run: npm run canary:local

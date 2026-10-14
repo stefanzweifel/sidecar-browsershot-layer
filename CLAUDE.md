@@ -14,6 +14,7 @@ Works in combination with [shelfio/chrome-aws-lambda-layer](https://github.com/s
 npm ci                # Install dependencies (use ci, not install, for reproducible builds)
 npm run build         # Build the layer ZIP → dist/sidecar-browsershot-layer.zip
 npm run smoke:test    # Verify the ZIP structure and that puppeteer-core can be required
+npm run canary:local  # Run the canary handler in the AWS Lambda Node 24 container image (needs Docker)
 ```
 
 ### AWS deployment (requires aws CLI, jq, and configured AWS credentials)
