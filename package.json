@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "bin/create-layer-zip.sh",
-    "smoke:test": "bin/smoke-test-zip.sh"
+    "smoke:test": "bin/smoke-test-zip.sh",
+    "canary:local": "bin/canary-local.sh"
   },
   "engines": {
     "npm": ">=11.0.0",
