@@ -8,7 +8,6 @@ set -e
 
 LOCAL_FILE_PATH="dist/${LOCAL_FILENAME}"
 IMAGE="public.ecr.aws/lambda/nodejs:24"
-PORT="${CANARY_LOCAL_PORT:-9000}"
 
 if [ ! -f "$LOCAL_FILE_PATH" ]; then
     echo "Error: $LOCAL_FILE_PATH not found. Run 'npm run build' first."
@@ -26,10 +25,12 @@ trap cleanup EXIT
 unzip -q "$LOCAL_FILE_PATH" -d "$TMP_DIR"
 cp "$(dirname "$0")/canary/handler.js" "$TMP_DIR/handler.js"
 
-CONTAINER=$(docker run -d -p "$PORT:8080" \
+CONTAINER=$(docker run -d -p 127.0.0.1::8080 \
     -v "$TMP_DIR/nodejs:/opt/nodejs:ro" \
     -v "$TMP_DIR/handler.js:/var/task/handler.js:ro" \
     "$IMAGE" handler.handler)
+
+PORT=$(docker port "$CONTAINER" 8080/tcp | head -n1 | sed 's/.*://')
 
 EXPECTED_VERSION=$(node -p "require('./node_modules/puppeteer-core/package.json').version")
 
